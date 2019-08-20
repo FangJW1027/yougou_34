@@ -1,0 +1,30 @@
+/* pages/search_list/index.wxss */
+.search{
+  padding:20rpx;
+  background: #eee;
+}
+
+.search-input{
+  background: #fff;
+  height:60rpx;
+  display: flex;
+  align-items: center;
+  color:#666;
+  padding:0 20rpx;
+  border-radius: 4px;
+}
+
+.search-input icon{
+  margin-right:10rpx;
+}
+
+.tab{
+  padding:20rpx 0;
+  display:flex;
+  justify-content: space-around;
+  border-bottom: 1px solid gold;
+}
+
+.tab .active{
+  color:red;
+}

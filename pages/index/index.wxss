@@ -29,7 +29,7 @@
 }
 
 .floor-content{
-  padding:20px 0;
+  padding:20rpx;
   display:flex;
   justify-content: space-between;
 }

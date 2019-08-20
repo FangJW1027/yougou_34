@@ -41,11 +41,11 @@ const request = function (config = {}) {
 
   // 返回一个promise。resolve是成功的回调。reject是失败的回调
   return new Promise((resolve, reject) => {
-    //发起小程序的请求
-    wx.request({
+    if(wx){
+	      //发起小程序的请求
+       wx.request({
       // 把传入的对象展开
-      ...config,
-
+        ...config,
       success(res) {
         // 成功之后触发then的回调函数
         resolve(res);
@@ -62,6 +62,8 @@ const request = function (config = {}) {
         })
       }
     })
+  }else{
+  }
   })
 };
 

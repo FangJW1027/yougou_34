@@ -3,7 +3,7 @@
 <view class="search">
   <view class="search-input">
     <icon type="search" size="16"></icon>
-    小米
+    {{keyword}}
   </view>
 </view>
 
@@ -18,15 +18,15 @@
 <view class="good-list">
   <!-- 单个商品 -->
   <view>
-    <navigator url="" class="goods-item">
-      <image src="https://img.alicdn.com/bao/uploaded/i4/2200678545211/O1CN01kDVTL91oMgRaEjNfc_!!0-item_pic.jpg"></image>
+    <navigator wx:for="{{goods}}" wx:key="{{index}}" url="" class="goods-item">
+      <image src="{{item.goods_small_logo}}"></image>
       <view class="goods-right">
         <view class="goods-title">
-          小米(MI)雨伞 全自动折叠太阳防晒遮阳伞米家男女通用商务家庭用创意超轻大号双人晴雨伞
+          {{item.goods_name}}
         </view>
         <view class="goods-price">
           ¥
-          <text>69.00</text>
+          <text>{{item.goods_price}}</text>
         </view>
       </view>
     </navigator>

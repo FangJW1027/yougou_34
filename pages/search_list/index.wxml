@@ -32,3 +32,8 @@
     </navigator>
   </view>
 </view>
+
+<!-- 加载更多的提示 -->
+<view class="load-more">
+{{hasMore ? '加载更多':'我也是有底线的'}}
+</view>

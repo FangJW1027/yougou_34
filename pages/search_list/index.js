@@ -12,6 +12,10 @@ Page({
 
     //  商品列表
     goods:[],
+    // 当前页数
+    pagenum:1,
+    // 每页条数
+    pagesize:10
   },
 
   handleChange(event){
@@ -32,11 +36,34 @@ Page({
     this.setData({
       keyword:options.keyword
     })
+    // 请求列表数据
+    this.getData()
+  },
 
+
+  // 请求列表数据
+  getData(){
+
+    const {keyword, pagenum, pagesize}=this.data;
     request({
-      url:"/goods/search?query="+options.keyword,
+      url:"/goods/search",
+      data:{
+        query:keyword,
+        pagenum,
+        pagesize,
+
+        // 是否有更多
+        hasMore:true
+      }
     }).then(res=>{
       const{goods}=res.data.message;
+
+      // 是否满足pagesize条数 不满足说明是最后一项
+      if(goods.length < this.data.pagesize){
+        this.setData({
+          hasMore:false
+        })
+      }
 
       // 循环给每个商品修改价格 保留两位小数点
       const newGoods=goods.map(v=>{
@@ -45,58 +72,25 @@ Page({
       })
 
       this.setData({
-        goods:newGoods
+        // 合并新旧的数据
+        goods:[...this.data.goods, ...newGoods]
       })
     })
-
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-     
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+ 
+//  加载下一页的数据
+onReachBottom(){
+  // 没有更多 直接返回
+  if(!this.data.hasMore){
+    return;
   }
+  // 页数加1
+  this.setData({
+    pagenum:this.data.pagenum + 1
+  })
+
+  // 请求列表数据
+  this.getData();
+}
+
 })
